@@ -1,0 +1,6 @@
+{
+  "name": "thor-does-ai",
+  "owner": { "name": "Thor Nørgaard Eriksen" },
+  "description": "Claude Code plugins I build and use daily: a statusline, session reviews, handoffs and more.",
+  "plugins": []
+}
