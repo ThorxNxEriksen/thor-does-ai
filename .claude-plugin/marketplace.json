@@ -2,5 +2,12 @@
   "name": "thor-does-ai",
   "owner": { "name": "Thor Nørgaard Eriksen" },
   "description": "Claude Code plugins I build and use daily: a statusline, session reviews, handoffs and more.",
-  "plugins": []
+  "plugins": [
+    { "name": "statusline", "source": "./plugins/statusline", "description": "Two-line statusline: model by family, context % past 45%, branch, profile, usage." },
+    { "name": "review-sessions", "source": "./plugins/review-sessions", "description": "Mine your own transcripts for recurring problems; file issues as they happen." },
+    { "name": "project-to-markdown", "source": "./plugins/project-to-markdown", "description": "Mirror a project folder into Markdown and see what changed since you last looked." },
+    { "name": "handoff", "source": "./plugins/handoff", "description": "Hand in-flight work from one session to the next." },
+    { "name": "refactor-claude-md", "source": "./plugins/refactor-claude-md", "description": "Refactor a sprawling CLAUDE.md into progressive disclosure." },
+    { "name": "profile-sync", "source": "./plugins/profile-sync", "description": "Walkthrough: several Claude Code profiles from one versioned config." }
+  ]
 }

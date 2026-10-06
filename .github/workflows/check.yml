@@ -1,0 +1,79 @@
+name: check
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+
+jobs:
+  privacy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: privacy check
+        env:
+          PRIVACY_DENYLIST: ${{ secrets.PRIVACY_DENYLIST }}
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          ARGS=""
+          if [ -z "$PRIVACY_DENYLIST" ]; then
+            if [ "$EVENT" = "pull_request" ]; then
+              echo "PRIVACY_DENYLIST unavailable (fork PR): running the generic rules only"
+              ARGS="--no-denylist"
+            else
+              echo "PRIVACY_DENYLIST secret is missing"; exit 1
+            fi
+          fi
+          if [ "$EVENT" = "pull_request" ]; then
+            node scripts/privacy-check.mjs --range "$PR_BASE..HEAD" $ARGS
+          elif [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            node scripts/privacy-check.mjs --history "$GITHUB_SHA" --all --ref "$GITHUB_REF" $ARGS
+          else
+            node scripts/privacy-check.mjs --range "$BEFORE..$GITHUB_SHA" --ref "$GITHUB_REF" $ARGS
+          fi
+
+  self-checks:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: git config --global user.email ci@runner.invalid
+      - run: git config --global user.name ci
+      - run: node scripts/privacy-check.mjs --self-check
+      - run: node plugins/review-sessions/skills/review-sessions/review.mjs --self-check
+      - run: node plugins/review-sessions/skills/review-sessions/status.mjs --self-check
+      - run: node plugins/review-sessions/skills/review-sessions/report.mjs --self-check
+      - run: node plugins/worktree-lifecycle/skills/worktree-lifecycle/wt.mjs --self-check
+      - run: python3 plugins/project-to-markdown/skills/project-to-markdown/project_to_markdown.py --self-check
+      - run: bash plugins/statusline/test.sh
+
+  path-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: no hardcoded install paths in any plugin
+        run: |
+          if grep -rnE 'claude-perfection|claude-plugins|node ~/\.claude/skills/' plugins/; then exit 1; fi
+
+  manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install -g @anthropic-ai/claude-code
+      - run: claude plugin validate .

@@ -1,0 +1,7 @@
+{
+  "name": "worktree-lifecycle",
+  "description": "Creates, checks and tears down git worktrees for a task, including merge-back and the 'already used by worktree' error.",
+  "author": { "name": "Thor Nørgaard Eriksen" },
+  "license": "MIT",
+  "repository": "https://github.com/ThorxNxEriksen/thor-does-ai"
+}

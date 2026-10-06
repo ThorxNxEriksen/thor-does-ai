@@ -1,0 +1,7 @@
+{
+  "name": "review-sessions",
+  "description": "Mines your own Claude Code transcripts for recurring problems and stages fixes for your setup; report-issue files a problem the moment you see it.",
+  "author": { "name": "Thor Nørgaard Eriksen" },
+  "license": "MIT",
+  "repository": "https://github.com/ThorxNxEriksen/thor-does-ai"
+}

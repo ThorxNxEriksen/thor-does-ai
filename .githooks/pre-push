@@ -1,0 +1,16 @@
+#!/bin/sh
+# Runs the privacy check over exactly what is being pushed: the commits, and the ref's own name
+# (plus the message, if it is an annotated tag).
+# Enable once per clone: git config core.hooksPath .githooks
+# git feeds one line per ref: <local ref> <local sha> <remote ref> <remote sha>
+zero=0000000000000000000000000000000000000000
+status=0
+while read -r lref lsha rref rsha; do
+  [ "$lsha" = "$zero" ] && continue      # deleting a remote branch publishes nothing
+  if [ "$rsha" = "$zero" ]; then
+    node scripts/privacy-check.mjs --new "$lsha" --ref "$rref" --sha "$lsha" || status=1
+  else
+    node scripts/privacy-check.mjs --range "$rsha..$lsha" --ref "$rref" --sha "$lsha" || status=1
+  fi
+done
+exit $status

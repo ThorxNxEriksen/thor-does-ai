@@ -12,6 +12,12 @@ you want.
 
 | Plugin | What it does |
 |---|---|
+| `statusline` | Two-line statusline. Run the `install-statusline` skill after installing. |
+| `review-sessions` | Reviews your own sessions for recurring problems; `report-issue` files one as it happens. |
+| `project-to-markdown` | Mirrors a project folder into Markdown for an LLM, and reports what changed since your last look. Needs `pip install "markitdown[all]"` for Office/PDF files. |
+| `handoff` | Writes and resumes a handoff when a session has to stop mid-work. |
+| `refactor-claude-md` | Refactors a long CLAUDE.md. Based on Matt Pocock's [AGENTS.md guide](https://www.aihero.dev/a-complete-guide-to-agents-md). |
+| `profile-sync` | Walkthrough for several profiles (work, personal) from one versioned config. |
 
 ## Skills I use but did not write
 

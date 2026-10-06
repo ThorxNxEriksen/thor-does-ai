@@ -1,0 +1,7 @@
+{
+  "name": "handoff",
+  "description": "Writes an executable handoff file when a session must stop mid-work, and resumes from it in the next session.",
+  "author": { "name": "Thor Nørgaard Eriksen" },
+  "license": "MIT",
+  "repository": "https://github.com/ThorxNxEriksen/thor-does-ai"
+}

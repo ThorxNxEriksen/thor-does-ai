@@ -1,0 +1,7 @@
+{
+  "name": "refactor-claude-md",
+  "description": "Refactors a long or contradictory CLAUDE.md into a short root file plus progressively disclosed docs. Based on Matt Pocock's approach.",
+  "author": { "name": "Thor Nørgaard Eriksen" },
+  "license": "MIT",
+  "repository": "https://github.com/ThorxNxEriksen/thor-does-ai"
+}

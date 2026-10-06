@@ -1,0 +1,12 @@
+# Literal strings the privacy check may ignore: synthetic fixtures in --self-check suites.
+# One per line, at least 8 characters. A hit is ignored when its matched text contains one.
+# Denylist hits are never ignored.
+sk-ant-abc123def456
+sk-ant-abcdefgh12345678
+sk-ant-shouldnotbescanned1234
+ghp_aaaaaaaaaaaa
+TOKEN=abcdef123456
+token= inside
+postgres://user:pw123@
+API_KEY=hunter2hunter2
+n@AGENTS.md
