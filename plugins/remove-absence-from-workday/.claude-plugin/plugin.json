@@ -1,0 +1,7 @@
+{
+  "name": "remove-absence-from-workday",
+  "description": "Remove single days from an existing Workday absence request by driving the browser with the Playwright MCP.",
+  "author": { "name": "Thor Nørgaard Eriksen" },
+  "license": "MIT",
+  "repository": "https://github.com/ThorxNxEriksen/thor-does-ai"
+}
