@@ -27,9 +27,11 @@ points `statusLine` at it. Running it again updates the copy.
    otherwise. If `statusLine` already exists with a different command, show both and ask before
    replacing. Never rewrite other keys.
 5. **Tell the user what they got**, in four lines:
-   - Line 1: model (Opus grey, Sonnet yellow, any other model red), effort, context % and
-     window size, git branch (protected branches `main`/`master`/`prod`/`production` in bold red).
-   - Context %: grey below 45, yellow from 45, red from 60. Change the `45 60` passed to
+   - Line 1: model (Opus and Fable in the default colour, Sonnet yellow, any other model red),
+     effort (yellow when it isn't the model's normal one: medium for Fable, high for the rest),
+     context % and window size, git branch (protected branches `main`/`master`/`prod`/`production`
+     in bold red).
+   - Context %: default colour below 45, yellow from 45, red from 60. Change the `45 60` passed to
      `color_pct` in the script to move them.
    - Line 2: the profile name (from a `~/.claude-<name>` directory), then 5-hour usage (red from
      75%) and 7-day usage (red from 90%) with their reset times.

@@ -12,7 +12,7 @@ FIVE_RESET=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty')
 WEEK_PCT=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
 WEEK_RESET=$(echo "$input" | jq -r '.rate_limits.seven_day.resets_at // empty')
 
-GREY='\033[90m'; YELLOW='\033[33m'; RED='\033[31m'; CYAN='\033[36m'; MAGENTA='\033[35m'; RESET='\033[0m'
+GREY=''; YELLOW='\033[33m'; RED='\033[31m'; CYAN='\033[36m'; MAGENTA='\033[35m'; RESET='\033[0m'
 RED_BOLD_UL='\033[1;4;31m'
 
 # Colored "NN%" — args: value [yellow_at=70] [red_at=90]
@@ -32,31 +32,36 @@ threshold_pct() {
   if [ "$p" -ge "$r" ]; then echo "${RED}${p}%${RESET}"; else echo "${p}%"; fi
 }
 
-# Effort suffix (omitted if the model has no effort setting)
+# Model colour (opus and fable grey / sonnet yellow / other red) and the effort that counts as normal for it
+NORMAL_EFFORT="high"
+case "$(echo "$MODEL_ID $MODEL" | tr '[:upper:]' '[:lower:]')" in
+  *opus*) MC="$GREY" ;;
+  *fable*) MC="$GREY"; NORMAL_EFFORT="medium" ;;
+  *sonnet*) MC="$YELLOW" ;;
+  *) MC="$RED" ;;
+esac
+
+# Effort suffix (omitted if the model has no effort setting); yellow when it is not the model's normal effort
 EFFORT_SEG=""
 if [ -n "$EFFORT" ]; then
-  if [ "$EFFORT" = "high" ]; then
+  if [ "$EFFORT" = "$NORMAL_EFFORT" ]; then
     EFFORT_SEG=" - $EFFORT"
   else
     EFFORT_SEG=" - ${YELLOW}${EFFORT}${RESET}"
   fi
 fi
 
-# Context-window variant, from the model id's [1m] marker (display name as fallback)
-if echo "$MODEL_ID" | grep -qi '\[1m\]' || echo "$MODEL" | grep -qi '1m'; then
-  VARIANT="1m"
+# Context-window size as Claude Code reports it (the model id no longer carries a [1m] marker)
+CTX_SIZE=$(echo "$input" | jq -r '.context_window.context_window_size // 200000')
+if [ "$CTX_SIZE" -ge 1000000 ]; then
+  VARIANT="$((CTX_SIZE / 1000000))m"
 else
-  VARIANT="200k"
+  VARIANT="$((CTX_SIZE / 1000))k"
 fi
 
 # Line 1: model - effort | ctx% - variant | branch
 # Line 2: profile | 5h | 7d
-# colored: model (opus grey / sonnet yellow / other red), ctx% (grey / yellow 45 / red 60), 5h% (red 75), 7d% (red 90), branch (magenta)
-case "$(echo "$MODEL_ID $MODEL" | tr '[:upper:]' '[:lower:]')" in
-  *opus*) MC="$GREY" ;;
-  *sonnet*) MC="$YELLOW" ;;
-  *) MC="$RED" ;;
-esac
+# colored: model (see above), ctx% (grey / yellow 45 / red 60), 5h% (red 75), 7d% (red 90), branch (magenta)
 
 LINE1="${MC}${MODEL_SHORT}${RESET}${EFFORT_SEG} | $(color_pct "$PCT" 45 60) - ${VARIANT}"
 
