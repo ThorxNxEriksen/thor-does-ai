@@ -1,0 +1,7 @@
+{
+  "name": "register-time-in-workday",
+  "description": "Register hours on a project for a day in Workday's Enter My Time, by driving the browser with the Playwright MCP.",
+  "author": { "name": "Thor Nørgaard Eriksen" },
+  "license": "MIT",
+  "repository": "https://github.com/ThorxNxEriksen/thor-does-ai"
+}

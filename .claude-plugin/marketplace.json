@@ -9,6 +9,7 @@
     { "name": "handoff", "source": "./plugins/handoff", "description": "Hand in-flight work from one session to the next." },
     { "name": "refactor-claude-md", "source": "./plugins/refactor-claude-md", "description": "Refactor a sprawling CLAUDE.md into progressive disclosure." },
     { "name": "profile-sync", "source": "./plugins/profile-sync", "description": "Walkthrough: several Claude Code profiles from one versioned config." },
-    { "name": "remove-absence-from-workday", "source": "./plugins/remove-absence-from-workday", "description": "Remove single days from a Workday absence request via the Playwright MCP." }
+    { "name": "remove-absence-from-workday", "source": "./plugins/remove-absence-from-workday", "description": "Remove single days from a Workday absence request via the Playwright MCP." },
+    { "name": "register-time-in-workday", "source": "./plugins/register-time-in-workday", "description": "Register hours on a project for a day in Workday via the Playwright MCP." }
   ]
 }
