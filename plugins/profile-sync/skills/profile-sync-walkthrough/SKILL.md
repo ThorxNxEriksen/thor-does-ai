@@ -78,6 +78,12 @@ in anyway: IDE integrations and `claude -p` in scripts do not load your shell rc
   makes that refusal self-explanatory.
 - **Every change is live everywhere, immediately.** There is no apply step; git is the rollback,
   but only for what is committed.
+- **An installed plugin does not follow your own plugin checkout.** Installing from a local
+  marketplace copies each plugin into the profile's `plugins/cache/`, and it stays at that commit
+  unless the marketplace has auto-update on; new plugins are never installed on their own. For
+  plugins you write yourself, add `--plugin-dir <checkout>/plugins` to each wrapper instead: every
+  plugin in that folder loads live, and `/reload-plugins` picks up an edit. IDE integrations and
+  `claude -p` do not go through the wrapper, so they do not get those plugins.
 
 ## 5. Windows
 
@@ -93,4 +99,4 @@ to set up, but each profile is then a snapshot that drifts until the next launch
 
 ---
 
-Last checked against Claude Code 2.1.291 on macOS, 2026-10-06.
+Last checked against Claude Code 2.1.331 on macOS, 2026-11-24.
