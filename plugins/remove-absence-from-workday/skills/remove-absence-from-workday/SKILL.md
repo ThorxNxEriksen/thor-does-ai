@@ -11,9 +11,14 @@ again. Never click twice because nothing seemed to happen.
 
 ## Before you start
 
+0. **Private notes.** The plugin's author keeps their tenant URL, project ids, comment conventions
+   and the network calls behind each step in `~/dev/claude-perfection/docs/workday.md` and
+   `workday-network.md`. If those files exist, read them first and don't ask for what they hold.
 1. **Browser.** The Playwright MCP launches its own browser with its own profile. It cannot attach
    to the user's already-open Firefox. Chrome and Edge can attach only with the MCP's
-   `--extension` mode. Say this if the user expects their own window.
+   `--extension` mode. Say this if the user expects their own window. If the browser fails to
+   launch ("Failed to launch the browser process"), another session's Playwright MCP probably holds
+   the profile: ask the user to close that Playwright window, then try again.
 2. **Tenant URL.** Ask for it (`https://<host>.myworkday.com/<tenant>/`) unless the user gave it.
    Don't write it into any file.
 3. **Output folder.** The Playwright MCP writes snapshots, console logs and screenshots to
