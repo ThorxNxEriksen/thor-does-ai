@@ -25,6 +25,15 @@ would move them out. Do not propose moving these again.
 
 _(none yet)_
 
+## Deletions approved
+
+Cuts the user agreed to, as a guide to what they consider dead weight.
+
+- 2026-11-24 claude-perfection — approved all four cuts: a false `~/.claude/archive` claim (verify
+  stated paths exist before moving them), a rule its own skill already enforces, a landmine a
+  hook now enforces, and glasshouse consent detail inactive since the hooks were removed. This
+  user cuts notes that duplicate what a hook or skill enforces.
+
 ## Deletions rejected
 
 Lines flagged for deletion that the user kept. Do not flag them again.
@@ -44,3 +53,6 @@ File names and boundaries the user chose, so later runs land on the same structu
   single pointer rather than keeping a summary. No duplicated prose in root.
 - 2026-08-24 nn-nbx — structure landed on: root + docs/{design-system,notion,deployment,
   working-fast}.md. Root links carry a "read before X" when-clause.
+- 2026-11-24 claude-perfection — structure landed on: root (live-config landmines, private remote,
+  conventions, `Cause:` rule) + docs/{review-sessions,thor-does-ai,layout}.md; installer and
+  profile-discovery appended to the existing docs/config-as-code.md.
