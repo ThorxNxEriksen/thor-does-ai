@@ -4,8 +4,9 @@ A public Claude Code plugin marketplace. One plugin per folder under `plugins/`.
 shared when it has an entry in `.claude-plugin/marketplace.json`; a folder without one is a draft.
 **Drafts are still public** — everything in this repo is on GitHub.
 
-The author consumes this repo as a local-directory marketplace, so plugins load in place from this
-checkout: an edit is live after `/reload-plugins`, and reaches other people only when pushed.
+The author does not install this marketplace: their sessions start with `--plugin-dir <checkout>/plugins`,
+so every plugin, drafts included, loads live from this checkout. An edit is live after
+`/reload-plugins`, and reaches other people only when pushed.
 
 ## Commands
 
